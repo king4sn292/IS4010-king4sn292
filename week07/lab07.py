@@ -9,6 +9,7 @@ from lab07_api_client import get_api_data
 
 
 def main():
+    # placeholder main function to satisfy CI workflow
     print("Lab 07 placeholder module. Modules have been imported successfully.")
 
 
