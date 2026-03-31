@@ -30,6 +30,7 @@ fn main() {
         Grade::B,
     ));
 
+    alice.add_credits(30);
     db.add_student(alice).unwrap();
     db.add_student(bob).unwrap();
 
@@ -47,14 +48,35 @@ fn main() {
         println!("Updated record for {}.", student.name);
     }
 
+    if let Some(student) = db.find_student("S001") {
+        println!(
+            "{} is a {} and can graduate: {}",
+            student.name,
+            student.class_standing(),
+            student.can_graduate(),
+        );
+    }
+
     println!("\nAll Students:");
     for student in db.list_students() {
         println!(
-            "  {} - {} (GPA: {:.2})",
+            "  {} - {} (GPA: {:.2}, {})",
             student.id,
             student.name,
             student.calculate_gpa(),
+            student.class_standing(),
         );
+    }
+
+    for grade_code in ["C", "D", "F"] {
+        if let Some(grade) = Grade::from_string(grade_code) {
+            println!(
+                "Parsed grade {} into {:?}, passing: {}",
+                grade_code,
+                grade,
+                grade.is_passing(),
+            );
+        }
     }
 
     if let Some(student) = db.find_student("S001") {
